@@ -101,8 +101,9 @@ module Fastlane
             end
 
             # Launching AVDs
-            UI.message("Launching all AVDs at the same time.".yellow)
+            UI.message("Launching all AVDs.".yellow)
             for i in 0...avd_controllers.length
+              sleep(3)
               Process.fork do
                 Action.sh(avd_controllers[i].command_start_avd)
               end
@@ -372,10 +373,7 @@ module Fastlane
             end
 
             # Finishing wait with success if all params are loaded for every device
-            device_boot_statuses.each do |name, is_booted|
-              if !is_booted
-                break
-              end
+            if device_boot_statuses.all? { |name, is_booted| is_booted }
               all_params_launched = true
             end
             if all_params_launched 
