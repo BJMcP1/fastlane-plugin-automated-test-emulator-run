@@ -375,7 +375,7 @@ module Fastlane
             # Finishing wait with success if all params are loaded for every device
             if device_boot_statuses.all? { |name, is_booted| is_booted }
               all_params_launched = true
-              sleep(10)
+              sleep(30)
             end
             if all_params_launched 
               break
